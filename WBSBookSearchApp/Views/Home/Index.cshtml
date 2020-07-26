@@ -1,0 +1,50 @@
+﻿@model PagedList.IPagedList<WBSBookSearchApp.Models.BookUserSearch>
+@using PagedList.Mvc;
+
+@{var searchfor = Request.Params["id"];}
+@if (searchfor.IsEmpty())
+{
+    ViewBag.Title = "Home Page";
+}
+else
+{
+    ViewBag.Title = "Searched for: " + searchfor;
+}
+
+<div class="container pt-5">
+    <div class="pt-5">
+        @if (Model == null || Model.TotalItemCount <= 0)
+        {
+    <p class="badge badge-pill badge-light">Sorry no results for <strong>@searchfor</strong></p> }
+else
+{
+    if (searchfor != null)
+    {
+    <p class="badge badge-pill badge-light">There are <strong>@Model.TotalItemCount</strong> results for <strong>@searchfor</strong></p> }
+else
+{
+    <p class="badge badge-pill badge-light">Recently searched</p> }
+
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Last Updated</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td class="hoverEffect">@Html.ActionLink(@item.Name, "BookDetails", new { bookLink = @item.BookLink, authorLink = @item.AuthorLink })</td>
+        <td class="hoverEffect">@Html.ActionLink(@item.Author, "AuthorDetails", new { authorLink = @item.AuthorLink })</td>
+        <td>@item.DataAndTime</td>
+    </tr>
+}
+    </table> if (@Model.Count() < @Model.TotalItemCount)
+                    {
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize })) }
+
+    
+    }
+    </div>
+</div>

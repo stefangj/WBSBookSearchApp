@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WBSBookSearchApp</title>
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/drawMap.js")
+
+</head>
+<body class="page">
+    @Html.Partial("_NavBar")
+    <div class="wrapper mt-3 mb-5">
+        <div class="body-content">
+            @RenderBody()
+        </div>
+    </div>
+    <footer>
+        @Html.Partial("_Footer")
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
